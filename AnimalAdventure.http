@@ -1,0 +1,6 @@
+@AnimalAdventure_HostAddress = http://localhost:5298
+
+GET {{AnimalAdventure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
