@@ -90,18 +90,18 @@ namespace AnimalAdventure.Services
                 throw new UnauthorizedAccessException("Invalid credentials");
             }
 
-            // Skapa claims för token
+            // Create claims for token
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, player.Name),
                 new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
             };
 
-            // Skapa signeringsnyckel och credentials
+            // Create signing key and credentials
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Jwt:Key"));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            // Skapa token
+            // Create token
             var token = new JwtSecurityToken(
                 issuer: config["Jwt:Issuer"],
                 audience: "Jwt:Audience",
@@ -110,7 +110,7 @@ namespace AnimalAdventure.Services
                 signingCredentials: credentials
             );
 
-            // Returnera token som en sträng
+            // Return token as a string
             return await GenerateTokenAsync(player);
         }
 
