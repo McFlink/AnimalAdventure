@@ -79,14 +79,14 @@ namespace AnimalAdventure.Controllers
 
             try
             {
-                var player = await _playerService.LoginPlayerAsync(login);
+                var token = await _playerService.LoginPlayerAsync(login);
 
-                if (player == null)
+                if (string.IsNullOrEmpty(token))
                 {
                     return Unauthorized("Invalid username or pin code");
                 }
 
-                return Ok(player);
+                return Ok(new { token });
             }
 
             catch (Exception ex)
@@ -94,6 +94,23 @@ namespace AnimalAdventure.Controllers
                 Console.WriteLine($"Login error: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+        [Authorize]
+        [HttpGet("getplayers")]
+        public async Task<IActionResult> GetPlayers()
+        {
+            var playerName = User.Identity.Name;
+
+            if (string.IsNullOrEmpty(playerName))
+            {
+                return Unauthorized("Användarnamn kunde inte hämtas från token.");
+            }
+
+            var players = await context.Players
+                .ToListAsync();
+
+            return Ok(players);
         }
     }
 }

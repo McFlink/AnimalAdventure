@@ -90,26 +90,6 @@ namespace AnimalAdventure.Services
                 throw new UnauthorizedAccessException("Invalid credentials");
             }
 
-            // Create claims for token
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name, player.Name),
-                new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
-            };
-
-            // Create signing key and credentials
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Jwt:Key"));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            // Create token
-            var token = new JwtSecurityToken(
-                issuer: config["Jwt:Issuer"],
-                audience: "Jwt:Audience",
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials
-            );
-
             // Return token as a string
             return await GenerateTokenAsync(player);
         }
