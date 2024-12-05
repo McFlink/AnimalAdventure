@@ -107,6 +107,7 @@ namespace AnimalAdventure.Controllers
                 return Unauthorized("Användarnamn kunde inte hämtas från token.");
             }
 
+            // Gå igenom service osv senare..
             var players = await context.Players
                 .ToListAsync();
 

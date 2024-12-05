@@ -13,5 +13,6 @@ namespace AnimalAdventure.Data
         public DbSet<Image> Images{ get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<AnswerOption> AnswerOptions { get; set; }
     }
 }
