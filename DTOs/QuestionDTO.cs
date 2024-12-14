@@ -7,6 +7,7 @@ namespace AnimalAdventure.DTOs
     {
         public int Id { get; set; }
         public string QuestionText { get; set; } = string.Empty;
+        public string? ImagePath { get; set; }
         public List<AnswerOptionsDTO> AnswerOptions { get; set; } = new List<AnswerOptionsDTO>();
     }
 }

@@ -4,6 +4,7 @@ using AnimalAdventure.Data.Repositories;
 using AnimalAdventure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -81,13 +82,21 @@ namespace AnimalAdventure
                                     Id = "Bearer"
                                 }
                             },
-                            new string[] {}
+                            Array.Empty<string>()
                         }
                 });
             });
 
 
             var app = builder.Build();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+                RequestPath = "/images"
+            });
+
 
             app.UseCors("AllowAllOrigins");
 

@@ -18,6 +18,7 @@ namespace AnimalAdventure.Data.Repositories
             try
             {
                 return await _context.Questions
+                    .Include(q => q.Animal)
                     .Include(q => q.AnswerOptions)
                     .ToListAsync();
             }

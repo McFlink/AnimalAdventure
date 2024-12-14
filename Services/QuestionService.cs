@@ -21,9 +21,11 @@ namespace AnimalAdventure.Services
             {
                 Id = q.Id,
                 QuestionText = q.QuestionText,
+                ImagePath = q.Animal.ImagePath,
                 AnswerOptions = q.AnswerOptions.Select(ao => new AnswerOptionsDTO
                 {
-                    Option = ao.Option
+                    Option = ao.Option,
+                    IsCorrect = ao.IsCorrect
                 }).ToList()
             }).ToList();
         }
